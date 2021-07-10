@@ -3,8 +3,10 @@ import Blog from './components/Blog'
 import blogService from './services/blogs'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
+import SignUpForm from './components/SignUpForm'
 //import Footer from './components/Footer'
 import loginService from './services/login'
+import signUpService from './services/signup'
 import Togglable from './components/Togglable'
 import BlogForm from './components/BlogForm'
 
@@ -14,7 +16,10 @@ const App = () => {
   const [showError, setShowError] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
   const [username,setUsername] = useState('')
+  const [name,setName] = useState('')
+  //const [usernamesup,setUsernamesup] = useState('')
   const [password,setPassword] = useState('')
+  //const [passwordsup,setPasswordsup] = useState('')
   const [user,setUser] = useState(null)
   const [style, setStyle] = useState('')
   const [userBlogs, setUserBlogs] = useState([])
@@ -175,6 +180,36 @@ const App = () => {
       }, 5000)
     }
   }
+  const handleSignUp = async (event) => {
+    event.preventDefault()
+    try {
+      const user = await signUpService.signup({
+        username,name, password,
+      })
+      window.localStorage.setItem(
+        'loggedBlogappUser', JSON.stringify(user)
+      )
+      //to log out from local storage type in browser
+      //window.localStorage.removeItem('loggedblogappUser')
+      //window.localStorage.clear()
+
+      blogService.setToken(user.token)
+      setUser(user)
+      setUsername('')
+      setName('')
+      setPassword('')
+    } catch (exception) {
+      setErrorMessage('Wrong username or password')
+      setStyle(false)
+      setUser(user)
+      setUsername('')
+      setName('')
+      setPassword('')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
+  }
   const loginForm = () => {
     return (
       <Togglable buttonLabel='login' buttonExit='cancel'>
@@ -184,6 +219,21 @@ const App = () => {
           handleUsernameChange={({ target }) => setUsername(target.value)}
           handlePasswordChange={({ target }) => setPassword(target.value)}
           handleSubmit={handleLogin}
+        />
+      </Togglable>
+    )
+  }
+  const signUpForm = () => {
+    return (
+      <Togglable buttonLabel='signup' buttonExit='cancel'>
+        <SignUpForm
+          username={username}
+          name={name}
+          password={password}
+          handleUsernameChange={({ target }) => setUsername(target.value)}
+          handleNameChange={({ target }) => setName(target.value)}
+          handlePasswordChange={({ target }) => setPassword(target.value)}
+          handleSubmit={handleSignUp}
         />
       </Togglable>
     )
@@ -212,7 +262,8 @@ const App = () => {
         <h2>Log in to the application</h2>
         <Notification  message={errorMessage} notifyColor={style} deletErrorMessage={deletErrorMessage}  />
         {loginForm()}
-
+        <p>Do not have an account? Sign up </p>
+        {signUpForm()}
       </div>
     )
   }
