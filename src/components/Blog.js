@@ -8,11 +8,9 @@ const Blog = ({ blog,handleLikes, handleDeleteBlog ,isItLiked,displayDeleteBtn }
   //const [liked, setLiked] = useState('false')
 
   const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 5,
-    paddingBottom:5,
-    border: 'solid green 1px',
-    borderWidth: 1,
+    padding:10,
+    border:'solid green 1px',
+    borderWidth: 4,
     marginBottom: 5,
     marginTop:5,
     borderRadius:'0.5em'
@@ -24,7 +22,7 @@ const Blog = ({ blog,handleLikes, handleDeleteBlog ,isItLiked,displayDeleteBtn }
       {blog.title} by {blog.author} <button className='display' onClick={() => setDisplay(!display)}>{display ? 'hide' : 'view'}</button>
       <br/>
       <div className='togglableDiv' style={{ display: display ? 'block': 'none' }}>
-        {blog.url} <br/>
+        <a href={blog.url}>{blog.url}</a> <br/>
         <span className='likesCount' >{blog.likes.length === null ? 0 : blog.likes.length} </span><button className='likes' onClick={handleLikes}
           style={{ fontSize:10, borderRadius:'1em' }}>{isItLiked}</button>
         <br/>

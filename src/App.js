@@ -199,7 +199,7 @@ const App = () => {
       setName('')
       setPassword('')
     } catch (exception) {
-      setErrorMessage('Wrong username or password')
+      setErrorMessage('Password should be atleast 3 character long')
       setStyle(false)
       setUser(user)
       setUsername('')
