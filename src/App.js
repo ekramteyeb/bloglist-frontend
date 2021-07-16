@@ -4,6 +4,7 @@ import blogService from './services/blogs'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import SignUpForm from './components/SignUpForm'
+import './App.css'
 //import Footer from './components/Footer'
 import loginService from './services/login'
 import signUpService from './services/signup'
@@ -258,7 +259,7 @@ const App = () => {
 
   if(user === null){
     return (
-      <div>
+      <div className='App-login'>
         <h2>Log in to the application</h2>
         <Notification  message={errorMessage} notifyColor={style} deletErrorMessage={deletErrorMessage}  />
         {loginForm()}
@@ -268,7 +269,7 @@ const App = () => {
     )
   }
   return (
-    <div>
+    <div className=''>
       <h2>Blogs lists : </h2>
       {/* { console.log('loggedin user blogs list')}
       {
