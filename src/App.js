@@ -251,7 +251,7 @@ const App = () => {
       <button type="submit">create</button>
     </form>   */
     return (
-      <Togglable buttonLabel='new blog' buttonExit='cancel' ref={blogFormRef}>
+      <Togglable buttonLabel='New blog' style={{ padding:'20px' }} buttonExit='cancel' ref={blogFormRef}>
         <BlogForm createBlog={addBlog} />
       </Togglable>
     )
@@ -269,28 +269,23 @@ const App = () => {
     )
   }
   return (
-    <div className=''>
-      <h2>Blogs lists : </h2>
-      {/* { console.log('loggedin user blogs list')}
-      {
-        console.log(userBlogs[0][0])
-      }
-      {console.log('each log ids ' )}
-      {blogs.map(blog => console.log(typeof blog.id))} */}
+    <div className='App'>
+      <div className='App-header'>
+        <h2>Blogs lists : </h2>
 
 
-
-      <Notification  message={errorMessage} deletErrorMessage={deletErrorMessage} notifyColor={style} />
-      <div style={{ color:'red', fontSize: 19 }}>{showError ? showError: ''}</div>
-      <p>{user.username} logged-in <button onClick={() => {
-        setUser(null)
-        //setBlogs([])
-        window.localStorage.removeItem('loggedBlogappUser')
-      }
-      }>Logout</button></p>
-
-      {blogForm()}
+        <Notification  message={errorMessage} deletErrorMessage={deletErrorMessage} notifyColor={style} />
+        <div style={{ color:'red', fontSize: 19 }}>{showError ? showError: ''}</div>
+        <p>{user.username} logged-in <button onClick={() => {
+          setUser(null)
+          //setBlogs([])
+          window.localStorage.removeItem('loggedBlogappUser')
+        }
+        }>Logout</button></p>
+      </div>
       <br/>
+      {blogForm()}
+      <br/> <br/>
 
       {/*blogs sorted decending order by likes first and listed   */}
       {
